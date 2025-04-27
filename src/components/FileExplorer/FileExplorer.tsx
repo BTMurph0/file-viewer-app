@@ -1,10 +1,23 @@
-import File from "../File/File";
-import logo from "./../../assets/icons8-folder.svg";
+import logo1 from "./../../assets/icons8-folder.svg";
+import logo2 from "./../../assets/icons8-file.svg";
 import "./FileExplorer.css";
-import data from "../../data/data.json";
 import { useState } from "react";
 
-const FileExplorer = ({ items = data }) => {
+type FileItem = {
+  name: string;
+  type: string;
+  added: string;
+};
+
+type FolderItem = {
+  name: string;
+  type: "folder";
+  files: Item[];
+};
+
+type Item = FileItem | FolderItem;
+
+const FileExplorer = ({ item }: { item: Item }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClick = () => {
@@ -12,27 +25,28 @@ const FileExplorer = ({ items = data }) => {
   };
 
   return (
-    <>
-      {items.map((item, i) => {
-        if (item.type === "folder") {
-          return (
-            <div key={i}>
-              <article onClick={handleClick} className="folder">
-                <img src={logo} />
-                <h3>{item.name}</h3>
-              </article>
-              {isOpen && item.files && (
-                <div>
-                  <FileExplorer items={item.files} />
-                </div>
-              )}
-            </div>
-          );
-        }
-
-        return <File item={item} key={i} />;
-      })}
-    </>
+    <li key={item.name}>
+      <span className="item">
+        {item.type === "folder" ? (
+          <article onClick={handleClick} className="folder">
+            <img src={logo1} />
+            <h3>{item.name}</h3>
+          </article>
+        ) : (
+          <article className="file">
+            <img src={logo2} />
+            <h3>{item.name}</h3>
+          </article>
+        )}
+      </span>
+      {isOpen && item.type === "folder" && (
+        <ul>
+          {(item as FolderItem).files.map((file) => (
+            <FileExplorer item={file} key={file.name} />
+          ))}
+        </ul>
+      )}
+    </li>
   );
 };
 

@@ -1,11 +1,11 @@
 import Header from "./components/Header.tsx";
-import FileExplorer from "./components/FileExplorer/FileExplorer.tsx";
+import Body from "./components/Body/Body.tsx";
 
 function App() {
   return (
     <div>
       <Header />
-      <FileExplorer />
+      <Body />
     </div>
   );
 }

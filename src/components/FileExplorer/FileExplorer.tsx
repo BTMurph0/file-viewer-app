@@ -3,9 +3,11 @@ import fileIcon from "./../../assets/icons8-file.svg";
 import "./FileExplorer.css";
 import { useState } from "react";
 
+type FileType = "pdf" | "doc" | "csv" | "mov";
+
 type FileItem = {
   name: string;
-  type: string;
+  type: FileType;
   added: string;
 };
 

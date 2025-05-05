@@ -1,5 +1,5 @@
-import logo1 from "./../../assets/icons8-folder.svg";
-import logo2 from "./../../assets/icons8-file.svg";
+import folderIcon from "./../../assets/icons8-folder.svg";
+import fileIcon from "./../../assets/icons8-file.svg";
 import "./FileExplorer.css";
 import { useState } from "react";
 
@@ -17,7 +17,7 @@ type FolderItem = {
 
 type Item = FileItem | FolderItem;
 
-const FileExplorer = ({ item }: { item: Item }) => {
+function FileExplorer({ item }: { item: Item }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClick = () => {
@@ -29,13 +29,14 @@ const FileExplorer = ({ item }: { item: Item }) => {
       <span className="item">
         {item.type === "folder" ? (
           <article onClick={handleClick} className="folder">
-            <img src={logo1} />
+            <img src={folderIcon} />
             <h3>{item.name}</h3>
           </article>
         ) : (
           <article className="file">
-            <img src={logo2} />
+            <img src={fileIcon} />
             <h3>{item.name}</h3>
+            <p>{item.added}</p>
           </article>
         )}
       </span>
@@ -48,6 +49,6 @@ const FileExplorer = ({ item }: { item: Item }) => {
       )}
     </li>
   );
-};
+}
 
 export default FileExplorer;

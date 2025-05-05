@@ -1,17 +1,18 @@
+type FileType = "pdf" | "doc" | "csv" | "mov";
+
 type FileItem = {
   name: string;
-  type: string;
+  type: FileType;
   added: string;
 };
 
 type FolderItem = {
   name: string;
-  type: "folder"; 
-  files: Item[]; 
+  type: "folder";
+  files: Item[];
 };
 
 type Item = FileItem | FolderItem;
-
 
 const items: Item[] = [
   {
